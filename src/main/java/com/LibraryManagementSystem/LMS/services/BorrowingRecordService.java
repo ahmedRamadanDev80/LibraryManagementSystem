@@ -48,4 +48,21 @@ public class BorrowingRecordService {
         return BorrowingRecordDto.from(borrowingRecord);
     }
 
+    @Transactional
+    public BorrowingRecordDto returnBook(Integer bookId, Integer patronId) {
+        // Fetch the BorrowingRecord based on bookId and patronId
+        BorrowingRecord borrowingRecord = borrowingRecordRepo
+                .findByBookIdAndPatronIdAndReturnDateIsNull(bookId, patronId)
+                .orElseThrow(() -> new RuntimeException("Borrowing record not found or book already returned"));
+
+        // Update the return date to the current date
+        borrowingRecord.setReturnDate(new Date());
+
+        // Save the updated BorrowingRecord
+        borrowingRecord = borrowingRecordRepo.save(borrowingRecord);
+
+        // Convert the entity to DTO and return
+        return BorrowingRecordDto.from(borrowingRecord);
+    }
+
 }
