@@ -2,6 +2,7 @@ package com.LibraryManagementSystem.LMS.controllers;
 
 import com.LibraryManagementSystem.LMS.dtos.PatronDto;
 import com.LibraryManagementSystem.LMS.services.PatronService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class PatronController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addPatron(@RequestBody PatronDto patronDto){
+    public ResponseEntity<String> addPatron(@Valid @RequestBody PatronDto patronDto){
         try{
 
             patronService.addPatron(patronDto);
@@ -38,7 +39,7 @@ public class PatronController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updatePatron(@RequestBody PatronDto patronDto, @PathVariable Integer id){
+    public ResponseEntity<String> updatePatron(@Valid @RequestBody PatronDto patronDto, @PathVariable Integer id){
         patronService.UpdatePatron(patronDto,id);
         return ResponseEntity.ok("Patron Updated");
     }

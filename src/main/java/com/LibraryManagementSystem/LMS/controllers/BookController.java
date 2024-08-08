@@ -1,6 +1,7 @@
 package com.LibraryManagementSystem.LMS.controllers;
 import com.LibraryManagementSystem.LMS.dtos.BookDto;
 import com.LibraryManagementSystem.LMS.services.BookService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addBook(@RequestBody BookDto bookDto){
+    public ResponseEntity<String> addBook(@Valid @RequestBody BookDto bookDto){
         try{
 
             bookService.addBook(bookDto);
@@ -36,7 +37,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateBook(@RequestBody BookDto bookDto, @PathVariable Integer id){
+    public ResponseEntity<String> updateBook(@Valid @RequestBody BookDto bookDto, @PathVariable Integer id){
         bookService.UpdateBook(bookDto,id);
         return ResponseEntity.ok("Book Updated");
     }
