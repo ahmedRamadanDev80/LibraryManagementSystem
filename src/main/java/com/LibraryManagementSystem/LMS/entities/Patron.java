@@ -1,5 +1,6 @@
 package com.LibraryManagementSystem.LMS.entities;
 
+import com.LibraryManagementSystem.LMS.dtos.PatronDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,4 +19,11 @@ public class Patron {
     private String name;
     private String contactInfo;
 
+    public static Patron from(PatronDto patrondto) {
+        return new Patron(
+                patrondto.getId(),
+                patrondto.getName(),
+                patrondto.getContactInfo()
+        );
+    }
 }

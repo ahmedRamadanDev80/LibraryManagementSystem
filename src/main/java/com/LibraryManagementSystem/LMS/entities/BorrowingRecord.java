@@ -1,4 +1,5 @@
 package com.LibraryManagementSystem.LMS.entities;
+import com.LibraryManagementSystem.LMS.dtos.BorrowingRecordDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,4 +25,14 @@ public class BorrowingRecord {
 
     private Date borrowingDate;
     private Date returnDate;
+
+    public static BorrowingRecord from(BorrowingRecordDto borrowingDTO, Book book, Patron patron) {
+        return new BorrowingRecord(
+                borrowingDTO.getId(),
+                book,
+                patron,
+                borrowingDTO.getBorrowingDate(),
+                borrowingDTO.getReturnDate()
+        );
+    }
 }
